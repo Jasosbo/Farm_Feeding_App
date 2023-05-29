@@ -10,6 +10,8 @@ namespace Farm_Feeding_App
 {
     internal class Program
     {
+
+        //dictionary of the species and breeds.
         static Dictionary<string, string[]> animalsDictionary = new Dictionary<string, string[]>()
         {
             {"Chicken", new string[]{"Brown", "Silkie" } } ,
@@ -37,14 +39,15 @@ namespace Farm_Feeding_App
             string name = CapitiliseName("Enter animal name");
 
             //date of birth breakdown
-            Console.WriteLine("Enter animal year of birth");
-            int dobYear = Convert.ToInt32(Console.ReadLine());
+            
+            int dobYear = CheckInt("Enter animal year of birth", 2000, DateTime.Now.Year);
 
-            Console.WriteLine("Enter animal month of birth");
-            int dobMonth = Convert.ToInt32(Console.ReadLine());
+            
+            int dobMonth = CheckInt("Enter animal month of birth", 1, 12);
 
-            Console.WriteLine("Enter animal day of birth");
-            int dobDay = Convert.ToInt32(Console.ReadLine());
+            
+            int dobDay = CheckInt("Enter animal day of birth", 1, 31);
+
             DateTime dob = new DateTime(dobYear, dobMonth, dobDay);
 
             //create a new animal object
@@ -69,7 +72,7 @@ namespace Farm_Feeding_App
 
 
         }
-
+        //ask user to pick a species from a menu
         private static string SpeciesMenu()
         {
 
@@ -83,7 +86,7 @@ namespace Farm_Feeding_App
             }
             return menu;
         }
-
+        //convert users int choice to a string of the speices choice (1. chicken= user input = 1 now stored as "chicken" not 1)
         private static string FindSpecies(int menuChoice)
         {
 
@@ -99,12 +102,13 @@ namespace Farm_Feeding_App
                     foundSpeices = animalType.Key;
                     break;
                 }
-                Console.WriteLine(speciesConter);
+                
             }
             
             return foundSpeices;
         }
 
+        //get the breeds according to the species choice
         private static string[] GetBreed(string species)
         {
             return animalsDictionary[species];
@@ -112,6 +116,7 @@ namespace Farm_Feeding_App
 
         }
 
+        //ask user to pick the speices breed from a menu
         private static string BreedMenu(string species)
         {
 
@@ -127,7 +132,7 @@ namespace Farm_Feeding_App
             return menu;
         }
 
-
+        //capitilsie the name of the animal and error if blank is entered
         private static string CapitiliseName(string question)
         {
             while (true)
@@ -147,6 +152,33 @@ namespace Farm_Feeding_App
                     
             }
             
+        }
+
+        private static int CheckInt(string question, int min, int max)
+        { 
+            
+            while(true)
+            {
+                try
+                {
+                    Console.WriteLine(question);
+                    int userint = int.Parse(Console.ReadLine());
+
+                    if (userint>= min && userint <= max)
+                    {
+                       return userint;
+                    }
+                    Console.WriteLine($"ERROR: Enter a number between {min} & {max} ");
+
+                }
+                catch (Exception)
+                {
+
+                    Console.WriteLine($"ERROR: Enter a number between {min} & {max} ");
+
+                }
+            }
+
         }
     }
 }
