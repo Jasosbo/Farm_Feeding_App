@@ -11,14 +11,7 @@ namespace Farm_Feeding_App
     internal class Program
     {
 
-        //dictionary of the species and breeds.
-        static Dictionary<string, string[]> animalsDictionary = new Dictionary<string, string[]>()
-        {
-            {"Chicken", new string[]{"Brown", "Silkie" } } ,
-            {"Duck", new string[]{"Pekin", "Silver Bantam" } } ,
-            {"Alpaca", new string[]{"Suri", "Huacaya" } } ,
-            {"Goat", new string[]{"Nubian", "Pygmy" } }
-        };
+       
         
 
         public static void Main(string[] args)
@@ -87,26 +80,26 @@ namespace Farm_Feeding_App
             return menu;
         }
         //convert users int choice to a string of the speices choice (1. chicken= user input = 1 now stored as "chicken" not 1)
-        private static string FindSpecies(int menuChoice)
-        {
+        //private static string FindSpecies(int menuChoice)
+        //{
 
-            int speciesConter = 0;
-            string foundSpeices = "";
+        //    int speciesConter = 0;
+        //    string foundSpeices = "";
 
 
-            foreach (KeyValuePair<string, string[]> animalType in animalsDictionary)
-            {
-                speciesConter ++;
-                if (menuChoice == speciesConter)
-                {
-                    foundSpeices = animalType.Key;
-                    break;
-                }
+        //    foreach (KeyValuePair<string, string[]> animalType in animalsDictionary)
+        //    {
+        //        speciesConter ++;
+        //        if (menuChoice == speciesConter)
+        //        {
+        //            foundSpeices = animalType.Key;
+        //            break;
+        //        }
                 
-            }
+        //    }
             
-            return foundSpeices;
-        }
+        //    return foundSpeices;
+        //}
 
         //get the breeds according to the species choice
         private static string[] GetBreed(string species)

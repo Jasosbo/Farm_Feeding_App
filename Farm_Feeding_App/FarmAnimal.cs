@@ -29,6 +29,13 @@ namespace Farm_Feeding_App
             this.foodConsumed = new List<float>();
         }
 
+        //return species 
+
+        public string GetSpecies()
+        { 
+            return species;
+        }
+
         // add daily consumption to consumption list
         public void AddDailyConsumption(float dailyConsumption)
         {
