@@ -39,6 +39,11 @@ namespace Farm_Feeding_App
             this.animals= new List<FarmAnimal>();
 
         }
+        public Dictionary <string, string[]> GetSpecies()
+        { 
+            return animalsDictionary;
+        }
+
         // adding farm animals to a list
         public void AddAnimal(FarmAnimal newAnimal)
         {
@@ -46,6 +51,13 @@ namespace Farm_Feeding_App
             animals.Add(newAnimal);
 
         }
+
+        public void AddConsumption(int consumption)
+        {
+            animals[animals.Count -1].AddDailyConsumption(consumption);
+        
+        }
+
 
         //calculates the food consumed be each species type
         public List<float> CalculateSpeciesFoodConsumption()
@@ -127,7 +139,26 @@ namespace Farm_Feeding_App
         }
 
 
+        public string AnimalsSummary()
+        {
+            string summary = "--- Animals Summary ---\n";
 
+            foreach (var animal in animals)
+            {
+                summary+= animal.AnimalSummary() + "\n";
+
+            }
+            summary += "Species consumption\n";
+            int animalIndex = 0;
+            foreach(KeyValuePair<string, string[]> animal in animalsDictionary)
+            {
+                summary += $"{animal.Key}: {CalculateSpeciesFoodConsumption()[animalIndex]}\t${CalculateSpeciesConsumptionCost()[animalIndex]}\n";
+                animalIndex++;
+
+            }
+            return summary;
+
+        }
 
 
     }

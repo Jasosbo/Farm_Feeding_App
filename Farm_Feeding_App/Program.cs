@@ -11,13 +11,13 @@ namespace Farm_Feeding_App
     internal class Program
     {
 
-       
-        
+
+       static AnimalManager animalManager = new AnimalManager();
 
         public static void Main(string[] args)
         {
 
-
+           
 
             //ask and store animal details
             
@@ -46,21 +46,23 @@ namespace Farm_Feeding_App
             //create a new animal object
             FarmAnimal testAnimal = new FarmAnimal(species, breed, name, dob);
 
+            animalManager.AddAnimal(testAnimal);
+
 
             for (int day = 1; day < 8; day++)
             {
                 Console.WriteLine($"Enter animal food consumption day {day}");
-                testAnimal.AddDailyConsumption(Convert.ToInt32(Console.ReadLine()));
+                animalManager.AddConsumption(Convert.ToInt32(Console.ReadLine()));
             }
 
 
-
+            animalManager.AddAnimal(new FarmAnimal("Duck", "Pekin", "Fred", new DateTime(2021,4,25)));
 
 
             //display animal summary
 
 
-            Console.WriteLine(testAnimal.AnimalSummary());
+            Console.WriteLine(animalManager.AnimalsSummary());
 
 
 
@@ -72,7 +74,7 @@ namespace Farm_Feeding_App
             string menu = "Choose your animal\n";
             int animalCounter = 1;
 
-            foreach  (KeyValuePair<string, string[]> animalType in animalsDictionary)
+            foreach  (KeyValuePair<string, string[]> animalType in animalManager.GetSpecies())
             {
                 menu += $"{animalCounter}. {animalType.Key}\n";
                 animalCounter++;
@@ -80,31 +82,31 @@ namespace Farm_Feeding_App
             return menu;
         }
         //convert users int choice to a string of the speices choice (1. chicken= user input = 1 now stored as "chicken" not 1)
-        //private static string FindSpecies(int menuChoice)
-        //{
+        private static string FindSpecies(int menuChoice)
+        {
 
-        //    int speciesConter = 0;
-        //    string foundSpeices = "";
+            int speciesConter = 0;
+            string foundSpeices = "";
 
 
-        //    foreach (KeyValuePair<string, string[]> animalType in animalsDictionary)
-        //    {
-        //        speciesConter ++;
-        //        if (menuChoice == speciesConter)
-        //        {
-        //            foundSpeices = animalType.Key;
-        //            break;
-        //        }
-                
-        //    }
-            
-        //    return foundSpeices;
-        //}
+            foreach (KeyValuePair<string, string[]> animalType in animalManager.GetSpecies())
+            {
+                speciesConter++;
+                if (menuChoice == speciesConter)
+                {
+                    foundSpeices = animalType.Key;
+                    break;
+                }
+
+            }
+
+            return foundSpeices;
+        }
 
         //get the breeds according to the species choice
         private static string[] GetBreed(string species)
         {
-            return animalsDictionary[species];
+            return animalManager.GetSpecies()[species];
 
 
         }
